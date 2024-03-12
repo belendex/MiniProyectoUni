@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,10 +25,21 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     //SETTINGS FIRE
-   
-    
+    public Transform firePoint; // Punto de disparo
+    public GameObject bulletPrefab; // Prefab de la bala
+    public int bulletSpeed = 50;
+    public bool isReadyToFire = false;
+    [SerializeField] private GameObject gunRoot;
+    private float tiempoTranscurrido = 0f;
 
+    //SETTINGS PARA HACERG EL ZOOM
+    public CinemachineVirtualCamera virtualCamera;
+    public float normalFOV = 45f; // FOV normal
+    public float changedFOV = 30f; // FOV cuando se presiona el control
+    public float lerpTime = .8f; // Tiempo para alcanzar el FOV cambiado
 
+    private float currentLerpTime;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +57,11 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-     
+
+        animator.SetBool("Walk", moveDirection != Vector3.zero);
+        animator.SetFloat("EjeX", moveInput.x);
+        animator.SetFloat("EjeY", moveInput.y);
+        animator.SetBool("Jumping", !canJump);
         if (moveDirection != Vector3.zero)
         {
             if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
@@ -81,11 +97,11 @@ public class PlayerController : MonoBehaviour
 
         pitch = Mathf.Clamp(pitch, -40f, 40f);
         
-        transform.eulerAngles= new Vector3 (0f, yaw, 0f);
+      //  transform.eulerAngles= new Vector3 (0f, yaw, 0f);
         CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(pitch,0f , 0f);
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionStay(Collision other)
     {
         if (other.gameObject.CompareTag("ground"))
         {
@@ -94,5 +110,4 @@ public class PlayerController : MonoBehaviour
     }
 
     
-
-    }
+}

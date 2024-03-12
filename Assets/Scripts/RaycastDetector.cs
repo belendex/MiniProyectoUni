@@ -12,6 +12,7 @@ public class RaycastDetector : MonoBehaviour
     [SerializeField] private KeyCode interactKey = KeyCode.E;
     public TasksTutoManager tutoManager;
     public PlayerController playerController;
+    [SerializeField] private GameObject weapons;
 
     private void Update()
     {
@@ -24,26 +25,26 @@ public class RaycastDetector : MonoBehaviour
         {
             InteractableItem hitInteractable = hit.collider.gameObject.GetComponent<InteractableItem>();
             MissionScript hitMission = hit.collider.gameObject.GetComponent<MissionScript>();
-            // Comprobar el tag del objeto impactado por el raycast
+
             if (hitInteractable.item == InteractableItem.typeItem.Gun)
             {
                 textObject.text = "Press " + interactKey + " to take a pistol";
-
+                
                 if (Input.GetKeyDown(interactKey))
-
                 {
+                    
+
                     if (hitInteractable.ObjetoEncendido != null)
                     {
                         hitInteractable.ObjetoEncendido.SetActive(true);
                         FindObjectOfType<WeaponManager>().inactive = false;
+                        playerController.isReadyToFire = true;
+
                     }
                     else
                     {
                         Debug.LogError("no tengo objeto que encender");
                     }
-                    // hit.collider.gameObject.transform.parent = gunRoot;
-                    // hit.collider.transform.localPosition = Vector3.zero;
-                    // hit.collider.transform.rotation = gunRoot.transform.parent.rotation;
 
 
                     if (hitMission != null && hitMission.isTuto && hitMission.ourTask == MissionScript.tasks.task02 && hitMission.isReady)
@@ -51,12 +52,22 @@ public class RaycastDetector : MonoBehaviour
                         tutoManager.task02Complete();
                         hitMission.isReady = false;
                     }
+                    else if (hitMission != null && hitMission.isTuto && hitMission.ourTask == MissionScript.tasks.task05 && hitMission.isReady)
+                    {
+                        tutoManager.task05Complete();
+                        hitMission.isReady = false;
+                    }
+                    weapons.SetActive(false);
+
                 }
 
             }
-            else if (hitInteractable.item == InteractableItem.typeItem.SoldierTuto)
+            else if(hitInteractable.item == InteractableItem.typeItem.SoldierTuto)
             {
-                textObject.text = "Press " + interactKey + " to speak with sargeant";
+                if(hitMission.isReady)
+                {
+                    textObject.text = "Press " + interactKey + " to speak with sargeant";
+                }
 
                 if (Input.GetKeyDown(interactKey))
                 {
@@ -64,11 +75,22 @@ public class RaycastDetector : MonoBehaviour
                     {
                         tutoManager.task01Complete();
                         hitMission.isReady = false;
+                        weapons.SetActive(true); 
+                    }
+                    else if (hitMission != null && hitMission.isTuto && hitMission.ourTask == MissionScript.tasks.task04 && hitMission.isReady)
+                    {
+                        tutoManager.task05Complete();
+                        hitMission.isReady = false;
+                    }
+                    else if (hitMission != null && hitMission.isTuto && hitMission.ourTask == MissionScript.tasks.task07 && hitMission.isReady)
+                    {
+                        tutoManager.task07Complete();
+                        hitMission.isReady = false;
                     }
                 }
             }
         }
-
+        
         else
         {
             textObject.text = "";
