@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DamageReal : MonoBehaviour
 {
+    public int damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class DamageReal : MonoBehaviour
         life vidaPersonaje = other.GetComponent<life>();
         if (vidaPersonaje != null)
         {
-            vidaPersonaje.Takedamage(10);
+            vidaPersonaje.Takedamage(damage);
         }
     }
 }

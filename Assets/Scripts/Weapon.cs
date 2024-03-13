@@ -2,12 +2,20 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
 
     public float cadencia;
     public float damage;
+    public int maxAmmo;
+    private int currentAmmo;
+    [SerializeField] private Image ammoImg;
+
+    private AudioSource aSource;
+    [SerializeField] private AudioClip reloadClip;
+    [SerializeField] private AudioClip shootClip;
 
     public Transform firePoint; // Punto de disparo
     public GameObject bulletPrefab; // Prefab de la bala
@@ -19,7 +27,7 @@ public class Weapon : MonoBehaviour
     public float changedFOV = 30f; // FOV cuando se presiona el control
     public float lerpTime = .8f; // Tiempo para alcanzar el FOV cambiado
     private float currentLerpTime;
-
+   public  bool isZoom = false;
     [SerializeField] private GameObject gunRoot;
     private float tiempoTranscurrido = 0f;
     public enum typeweapon
@@ -29,22 +37,36 @@ public class Weapon : MonoBehaviour
     }
     public typeweapon type;
 
+    private void Start()
+    {
+        currentAmmo = maxAmmo;
+        UpdateAmmoUI();
+        aSource = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         tiempoTranscurrido += Time.deltaTime;
 
         if (Input.GetButtonDown("Fire1"))
         {
-
             OnFire();
-
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
         }
         Zoom();
     }
 
+    private void OnEnable()
+    {
+        UpdateAmmoUI();
+    }
+
     public void OnFire()
     {
-        if (tiempoTranscurrido >= this.cadencia)
+        if (tiempoTranscurrido >= this.cadencia && currentAmmo > 0)
         {
             tiempoTranscurrido = 0;
             Debug.DrawLine(firePoint.position, firePoint.forward * 10f, Color.red);
@@ -60,6 +82,23 @@ public class Weapon : MonoBehaviour
                 bullet.GetComponent<BulletScript>().tipoArma = this.type.ToString();
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
                 rb.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
+                //aSource.PlayOneShot(shootClip);
+                currentAmmo--;
+                UpdateAmmoUI();
+            }
+            else
+            {
+                // Dispara en la dirección hacia donde la cámara está mirando, incluso si no hay colisión.
+                Vector3 targetDirection = Camera.main.transform.forward;
+                firePoint.rotation = Quaternion.LookRotation(targetDirection);
+
+                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(targetDirection));
+                bullet.GetComponent<BulletScript>().tipoArma = this.type.ToString();
+                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                rb.AddForce(targetDirection * bulletSpeed, ForceMode.Impulse);
+                //aSource.PlayOneShot(shootClip);
+                currentAmmo--;
+                UpdateAmmoUI();
             }
         }
 
@@ -69,6 +108,7 @@ public class Weapon : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
+            isZoom = true;
             // Incrementa el tiempo de interpolación
             currentLerpTime += Time.deltaTime;
             if (currentLerpTime > lerpTime)
@@ -84,10 +124,26 @@ public class Weapon : MonoBehaviour
         {
             // Restablece el tiempo de interpolación
             currentLerpTime = 0f;
-
+            isZoom = false;
             // Vuelve al FOV normal suavemente
             float fov = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, normalFOV, Time.deltaTime * lerpTime * 2);
             virtualCamera.m_Lens.FieldOfView = fov;
         }
+    }
+
+    void UpdateAmmoUI()
+    {
+        float fillAmount = (float)this.currentAmmo / this.maxAmmo;
+        ammoImg.fillAmount = fillAmount;
+    }
+
+    IEnumerator Reload()
+    {
+        currentAmmo = 0;
+        aSource.clip = reloadClip;
+        aSource.Play();
+        yield return new WaitForSeconds(2);
+        currentAmmo = maxAmmo;
+        UpdateAmmoUI();
     }
 }
