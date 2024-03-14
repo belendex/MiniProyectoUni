@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
     public Material greenMat;
     public TasksTutoManager tutoManager;
     public string tipoArma;
+    public int damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +22,9 @@ public class BulletScript : MonoBehaviour
     }
 
     public void OnCollisionEnter(Collision collision)
-    {
+    {   
         Debug.Log("colisioné con:"+collision.gameObject.name);
+        Debug.Log("pos Bala " + transform.position);
         if(collision.gameObject.CompareTag("TutoObject"))
         {
             collision.gameObject.GetComponent<MeshRenderer>().material = greenMat;
@@ -38,6 +40,10 @@ public class BulletScript : MonoBehaviour
                 }
             }
         }
-      // Destroy(gameObject);
+
+        //Destroy(gameObject);
+
+
+
     }
 }

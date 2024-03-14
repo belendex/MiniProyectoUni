@@ -6,6 +6,10 @@ public class enemyZombie : MonoBehaviour
     public string tagObstaculo = "Obstacle"; // Tag del obstáculo
     public float distanciaMinima = 5f;
     public float velocidadMovimiento = 3f;
+    public float minY = 0f; // Límite mínimo en el eje Y
+    public float maxY = 10f; // Límite máximo en el eje Y
+    public int life;
+    public GameObject particles;
 
     private Transform jugador;
 
@@ -34,8 +38,27 @@ public class enemyZombie : MonoBehaviour
                 }
             }
 
+            // Restringe el movimiento vertical
+            float newY = Mathf.Clamp(transform.position.y, minY, maxY);
+            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+
             // Mover el enemigo hacia el jugador
             transform.Translate(direccion * velocidadMovimiento * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("bullet"))
+        {
+            int dmg = other.gameObject.GetComponent<BulletScript>().damage;
+            life = life - dmg;
+
+            if (life < 0)
+            {
+                particles.SetActive(true);
+                Destroy(gameObject, 1.7f);
+            }
         }
     }
 }
