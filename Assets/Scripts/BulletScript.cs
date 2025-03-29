@@ -23,8 +23,7 @@ public class BulletScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {   
-        Debug.Log("colisioné con:"+collision.gameObject.name);
-        Debug.Log("pos Bala " + transform.position);
+       
         if(collision.gameObject.CompareTag("TutoObject"))
         {
             collision.gameObject.GetComponent<MeshRenderer>().material = greenMat;

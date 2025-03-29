@@ -26,7 +26,8 @@ public class DamageReal : MonoBehaviour
             vidaPersonaje.Takedamage(damage);
             if(particles != null)
             {
-                particles.SetActive(true);
+                print("particulas");
+                Instantiate(particles, transform.position, transform.rotation);
             }
             Destroy(gameObject,0.5f);
         }

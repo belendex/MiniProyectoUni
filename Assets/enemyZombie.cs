@@ -10,7 +10,8 @@ public class enemyZombie : MonoBehaviour
     public float maxY = 10f; // Límite máximo en el eje Y
     public int life;
     public GameObject particles;
-
+    public GameObject OjosNormal;
+    public GameObject OjosEnfado;
     private Transform jugador;
 
     void Start()
@@ -23,8 +24,14 @@ public class enemyZombie : MonoBehaviour
         float distancia = Vector3.Distance(transform.position, jugador.position);
 
         if (distancia < distanciaMinima)
-        {
+        {   
+            OjosNormal.SetActive(false);
+            OjosEnfado.SetActive(true);
             Vector3 direccion = (jugador.position - transform.position).normalized;
+            Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
+            float anguloActual = transform.eulerAngles.y;
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,rotacionObjetivo, 300 * Time.deltaTime);
 
             // Raycast para detectar obstáculos
             RaycastHit hit;
@@ -45,21 +52,34 @@ public class enemyZombie : MonoBehaviour
             // Mover el enemigo hacia el jugador
             transform.Translate(direccion * velocidadMovimiento * Time.deltaTime);
         }
+        else
+        {
+            OjosNormal.SetActive(true);
+            OjosEnfado.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("bullet"))
+        if (other.CompareTag("Bullet"))
         {
+            print("bala");
             int dmg = other.gameObject.GetComponent<BulletScript>().damage;
             life = life - dmg;
-
+            
             if (life < 0)
-            {
-                particles.SetActive(true);
-                Destroy(gameObject, 1.7f);
+            {  print("entré a trigger");
+                Instantiate(particles, transform.position, transform.rotation);
+                Destroy(gameObject);
             }
+            
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, distanciaMinima);
     }
 }
 
