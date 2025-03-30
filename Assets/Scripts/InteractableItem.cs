@@ -14,6 +14,7 @@ public class InteractableItem : MonoBehaviour
         PCtuto,
         EndGame,
         Nave,
+        Torreta
     }
     
      public typeItem item;

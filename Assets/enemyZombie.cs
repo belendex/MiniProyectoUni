@@ -50,7 +50,7 @@ public class enemyZombie : MonoBehaviour
             transform.position = new Vector3(transform.position.x, newY, transform.position.z);
 
             // Mover el enemigo hacia el jugador
-            transform.Translate(direccion * velocidadMovimiento * Time.deltaTime);
+            transform.position+=(direccion * velocidadMovimiento * Time.deltaTime);
         }
         else
         {

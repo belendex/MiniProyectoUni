@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+    public CameraTurret cameraTorret;
     public GameObject bullet;
     void Start()
     {
 
-    }
 
-    // Update is called once per frame
+
+    }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (cameraTorret.cameraTorreta.gameObject.activeSelf)
         {
-            Instantiate(bullet, transform.position, transform.rotation);
+            if (Input.GetMouseButtonDown(0))
+            {
+                Instantiate(bullet, transform.position, transform.rotation);
+            }
         }
     }
 }
+
+
+
+
+

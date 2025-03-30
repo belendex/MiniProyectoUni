@@ -2594,7 +2594,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.3456893, y: 2.3937128, z: 0.287586}
   m_Center: {x: 0, y: 1.1968647, z: 0}
@@ -2907,7 +2907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_TagString
-      value: TutoObject
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4327,7 +4327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_TagString
-      value: TutoObject
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5542,7 +5542,9 @@ MonoBehaviour:
   playerController: {fileID: 245972998}
   weapons: {fileID: 635039461}
   fadeController: {fileID: 1405472356}
+  cuentaAtras: {fileID: 0}
   nave: {fileID: 0}
+  Salida: {fileID: 0}
 --- !u!114 &717049818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10415,7 +10417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1236781213}
   fadeDuration: 1
-  sceneToChange: 2
+  sceneToChange: tuto 1
 --- !u!114 &1405472357 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1610094414902631233, guid: e4725ef5334757b469a941942f3ac808, type: 3}
@@ -11326,7 +11328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_TagString
-      value: TutoObject
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -12545,7 +12547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_TagString
-      value: TutoObject
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -13053,7 +13055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_TagString
-      value: TutoObject
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 3190258480241073766, guid: 0401febfdd78596449615d7138ef0ec7, type: 3}
       propertyPath: m_StaticEditorFlags
