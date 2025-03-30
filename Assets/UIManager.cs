@@ -77,7 +77,10 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-
+    public void IrEscena2()
+    {
+        SceneManager.LoadScene("2");
+    }
     public void ShowTextInteractive()
     {
         textoInteractivo.SetActive(true);
@@ -90,5 +93,13 @@ public class UIManager : MonoBehaviour
     {
         final.SetActive(true);
         Invoke("Salir", 2f);
+
+    }
+
+    public void ShowSalidaCanvas()
+    {
+        final.SetActive(true);
+        Invoke("IrEscena2", 2f);
+
     }
 }

@@ -16,8 +16,9 @@ public class RaycastDetector : MonoBehaviour
     [SerializeField] private GameObject weapons;
     [SerializeField] private FadeController fadeController;
 
+    public GameObject cuentaAtras;
     public GameObject nave;
-
+    public GameObject Salida;
     private void Update()
     {
         // Lanzar un raycast desde la cámara en la dirección en la que se está mirando
@@ -111,10 +112,10 @@ public class RaycastDetector : MonoBehaviour
             }
             else if (hitInteractable.item == InteractableItem.typeItem.Nave)
             {
-                textObject.text = "Press " + interactKey + " to end";
                 if (Input.GetKeyDown(interactKey))
                 {
-                    UIManager.Instance.ShowFinalCanvas();
+                    cuentaAtras.SetActive(true);
+                    Salida.SetActive(true); 
                 }
             }
         }
