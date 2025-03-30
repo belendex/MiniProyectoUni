@@ -89,7 +89,7 @@ public class scr : MonoBehaviour
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene("tuto 1");
+        SceneManager.LoadScene("MainMenu");
     }
 
 

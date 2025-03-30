@@ -2746,7 +2746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 453575452565720054, guid: 5fb1bc89b0ab93349b24be32cd63eb01, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 143.35
+      value: 143.58
       objectReference: {fileID: 0}
     - target: {fileID: 453575452565720054, guid: 5fb1bc89b0ab93349b24be32cd63eb01, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2800,6 +2800,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Personaje principal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5441629830592708080, guid: 5fb1bc89b0ab93349b24be32cd63eb01, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dac143f36e578e44cbcb98dfd4431dba, type: 2}
     - target: {fileID: 5801886532638481445, guid: 5fb1bc89b0ab93349b24be32cd63eb01, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5480,7 +5484,7 @@ Transform:
   m_GameObject: {fileID: 717049810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 384.15002, y: 148.25, z: -328.64}
+  m_LocalPosition: {x: 384.15002, y: 148.48, z: -328.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7221,6 +7225,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: cfef738579cd02c40b3b1d63e67b0f84, type: 3}
       propertyPath: m_Name
       value: Door_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: cfef738579cd02c40b3b1d63e67b0f84, type: 3}
+      propertyPath: m_TagString
+      value: ground
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cfef738579cd02c40b3b1d63e67b0f84, type: 3}
       propertyPath: m_LocalScale.x
@@ -11585,7 +11593,7 @@ Transform:
   m_GameObject: {fileID: 1708251375}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 384.15002, y: 148.25, z: -328.64}
+  m_LocalPosition: {x: 384.15002, y: 148.48, z: -328.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14315,7 +14323,7 @@ GameObject:
   - component: {fileID: 2058334480}
   m_Layer: 3
   m_Name: Cube (12)
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

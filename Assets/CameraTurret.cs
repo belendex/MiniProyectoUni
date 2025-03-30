@@ -30,7 +30,7 @@ public class CameraTurret : MonoBehaviour
 
     {  
         if (drone.finish==true) {
-            drone.virtualCameraCinematic.enabled = true;
+            cameraPlayer.enabled = true;
             return;
             //return evita que se ejecute lo qu está abajo, 
         }
